@@ -1,0 +1,36 @@
+# How to use migration services
+
+### initialize
+
+`alembic init alembic`
+
+### Set up your db path
+
+```
+alembic.ini:
+sqlalchemy.url = postgresql://postgresuser:12345678@0.0.0.0/my_gym_app
+
+env.py:
+from app.models import Base
+target_metadata = Base.metadata
+```
+
+### Upgrade
+
+```
+alembic revision --autogenerate -m "initial"
+alembic upgrade head
+```
+
+### Degrade
+
+```
+alembic history
+alembic downgrade <revision_id>
+alembic current
+```
+
+###  FAILED: Directory alembic already exists and is not empty
+```
+rm -r alembic
+```
